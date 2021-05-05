@@ -3,6 +3,7 @@ import { Chart } from 'react-google-charts';
 
 const ScatterChartExample = (props) => {
   return (
+
     <div className={'my-pretty-chart-container'}>
       <div>
         <h2> Below is an example Scatter Chart</h2>
@@ -18,14 +19,35 @@ const ScatterChartExample = (props) => {
             ['58',  1500,      630, 850, 500],
             ['59',  1030,      800, 1050, 1000]
           ]}
-          options={{}}
-          graph_id="ScatterChart"
-          width="100%"
-          height="400px"
-          legend_toggle
+          chartEvents={[
+            {
+              eventName: 'select',
+              callback: ({ chartWrapper }) => {
+                const chart = chartWrapper.getChart()
+                const selection = chart.getSelection()
+                if (selection.length === 1) {
+                  const [selectedItem] = selection
+                  const dataTable = chartWrapper.getDataTable()
+                  const { row, column } = selectedItem
+                  alert(
+                    'You selected : ' +
+                      JSON.stringify({
+                        row,
+                        column,
+                        value: dataTable.getValue(row, column),
+                      }),
+                    null,
+                    2,
+                  )
+                }
+                console.log(selection)
+              },
+            },
+          ]}
         />
       </div>
-    </div>
+    </div> 
+
   );
 }
 
