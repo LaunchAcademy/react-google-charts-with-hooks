@@ -35,6 +35,7 @@ const ScatterChartExample = (props) => {
                         row,
                         column,
                         value: dataTable.getValue(row, column),
+                        columnLabel: dataTable.getColumnLabel(column)
                       }),
                     null,
                     2,
